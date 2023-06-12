@@ -1,16 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Home from "./pages/Home";
+import AddEdit from "./pages/AddEdit";
+import View from "./pages/View";
+import About from "./pages/About";
+import Header from './components/Header'
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-       <h2>hello</h2>
+       
+      <ToastContainer />
+
+      <Header/>
+      <Routes>
+        <Route exact path="/" Component={Home} />
+        <Route  path="/add" Component={AddEdit} />
+        <Route  path="/update/:id" Component={AddEdit} />
+        <Route  path="/view/:id" Component={View} />
+        <Route  path="/about" Component={About} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
