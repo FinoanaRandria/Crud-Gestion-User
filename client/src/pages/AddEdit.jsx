@@ -48,7 +48,8 @@ const getSingleUser = async (id)=>{
   const updateUser = async (data)=>{
     const response = await axios.put(`http://localhost:3002/user/${id}`,data)
      if(response.status === 200){
-      
+         toast.success(response.data)
+         
   
      }
   }

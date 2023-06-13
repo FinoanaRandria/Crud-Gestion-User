@@ -31,7 +31,7 @@ export default function Header() {
         color="blue-gray"
         className="p-1 font-normal"
       >
-       <Link to="/add">Add User</Link>
+       
       </Typography>
       <Typography
         as="li"
@@ -53,7 +53,7 @@ export default function Header() {
           href="#"
           className="mr-4 cursor-pointer py-1.5 font-medium"
         >
-          <Link to="/">Logo</Link>
+          <Link to="/">Gestion User</Link>
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <Button variant="gradient" size="sm" className="hidden lg:inline-block">
