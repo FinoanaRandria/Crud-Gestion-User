@@ -10,14 +10,17 @@ const Home = () => {
     const response = await axios.get("http://localhost:3002/users");
     if (response.status === 200) {
       setData(response.data);
+      
     }
   };
+
+
 
  const onDeleteUser = async(id) =>{
     
     const response = await axios.delete(`http://localhost:3002/user/${id}`)
     if(response.status === 200){
-      /*  window.location.reload */
+      
       toast.success(response.data)
        getUsers();
     }

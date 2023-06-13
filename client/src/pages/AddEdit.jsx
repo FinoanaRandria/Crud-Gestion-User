@@ -1,38 +1,85 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 const AddEdit = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const navigate = useNavigate();
+  const {id} = useParams();
+
+
+
+  console.log(id);
+
+  useEffect(()=>{
+    if(id){
+      console.log(id);
+      getSingleUser(id)
+    }
+},[id])
+
+
+
+const getSingleUser = async (id)=>{
+  const response = await axios.get(`http://localhost:3002/user/${id}`)
+   if(response.status === 200){
+    console.log(response.data[0]);
+    setName(response.data[0].name)
+    setEmail(response.data[0].email)
+    setContact(response.data[0].contact)
+
+   }
+}
+
+
 
   const addData = async (data) => {
     const response = await axios.post("http://localhost:3002/user", data);
     if (response.status === 201) {
       toast.success(response.data);
-      console.log("=======");
+      console.log("====add data===");
       console.log(data);
     }
   };
+   
+  const updateUser = async (data)=>{
+    const response = await axios.put(`http://localhost:3002/user/${id}`,data)
+     if(response.status === 200){
+      
+  
+     }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !contact) {
       toast.error("Please complete eah input");
     } else {
-      addData({
-        name: name,
-        email: email,
-        contact: contact,
-      });
+        if(!id){
+          addData({
+            name: name,
+            email: email,
+            contact: contact,
+          });
+        }else{
+           updateUser({
+            name: name,
+            email: email,
+            contact: contact,
+           })
+        }
        setTimeout(()=>{
           navigate('/')
        },500)
     }
+
   };
   return (
     <>
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img

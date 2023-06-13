@@ -24,7 +24,7 @@ exports.createUsers = (req,res)=>{
 
 exports.getUser = (req,res)=>{
  const singleUser = users.filter((user)=> user.id === req.params.id )
-  res.status(302).send(singleUser);
+  res.status(200).send(singleUser);
 }
 
 
