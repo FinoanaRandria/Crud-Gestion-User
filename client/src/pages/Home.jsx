@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Card, Typography } from "@material-tailwind/react";
+import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import axios from "axios";
 const Home = () => {
@@ -13,7 +13,15 @@ const Home = () => {
     }
   };
 
-  console.log(data);
+ const onDeleteUser = async(id) =>{
+    
+    const response = await axios.delete(`http://localhost:3002/user/${id}`)
+    if(response.status === 200){
+      /*  window.location.reload */
+      toast.success(response.data)
+       getUsers();
+    }
+ }
 
   useEffect(() => {
     getUsers();
@@ -43,7 +51,7 @@ const Home = () => {
                   <Link to={`/update/${item.id}`}>
                   <Button  className="m-1" color="amber">Update</Button>
                   </Link>
-                  <Button className="m-1"  color="red">Delete</Button>
+                  <Button onClick={()=>onDeleteUser(item.id)} className="m-1"  color="red">Delete</Button>
                   <Link to={`/view/${item.id}`}>
                   <Button className="m-1"  color="green">View</Button>
                   </Link>
